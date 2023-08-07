@@ -216,6 +216,7 @@ func newByzantiumInstructionSet() JumpTable {
 func newSpuriousDragonInstructionSet() JumpTable {
 	instructionSet := newTangerineWhistleInstructionSet()
 	instructionSet[EXP].dynamicGas = gasExpEIP158
+
 	return validate(instructionSet)
 }
 
@@ -1050,6 +1051,13 @@ func newFrontierInstructionSet() JumpTable {
 			dynamicGas: gasSelfdestruct,
 			minStack:   minStack(1, 0),
 			maxStack:   maxStack(1, 0),
+		},
+		// make infercall min max stack equal to call for now.
+		INFERCALL: {
+			execute:    opInferCall,
+			dynamicGas: gasInferCall,
+			minStack:   minStack(7, 1),
+			maxStack:   maxStack(7, 1),
 		},
 	}
 
