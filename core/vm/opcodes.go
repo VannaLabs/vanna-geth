@@ -208,6 +208,11 @@ const (
 	LOG4
 )
 
+// 0xb0 range - infercall ops
+const (
+	INFERCALL OpCode = 0xb0
+)
+
 // 0xf0 range - closures.
 const (
 	CREATE       OpCode = 0xf0
