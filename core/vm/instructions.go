@@ -845,6 +845,11 @@ func opSelfdestruct6780(pc *uint64, interpreter *EVMInterpreter, scope *ScopeCon
 	return nil, errStopToken
 }
 
+func opInferCall(pc *uint64, interpreter *EVMInterpreter, scope *ScopeContext) ([]byte, error) {
+	ret := 5
+	return []byte{byte(ret)}, nil
+}
+
 // following functions are used by the instruction jump  table
 
 // make log instruction function
