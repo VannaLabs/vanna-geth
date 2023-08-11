@@ -208,6 +208,10 @@ const (
 	LOG4
 )
 
+const (
+	VANNA256 OpCode = 0xc0
+)
+
 // 0xb0 range - infercall ops
 const (
 	INFERCALL OpCode = 0xb0
@@ -262,6 +266,7 @@ var opCodeToString = map[OpCode]string{
 
 	// 0x20 range - crypto.
 	KECCAK256: "KECCAK256",
+	VANNA256:  "VANNA256",
 
 	// 0x30 range - closure state.
 	ADDRESS:        "ADDRESS",

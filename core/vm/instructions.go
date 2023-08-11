@@ -251,6 +251,26 @@ func opKeccak256(pc *uint64, interpreter *EVMInterpreter, scope *ScopeContext) (
 	size.SetBytes(interpreter.hasherBuf[:])
 	return nil, nil
 }
+func opVanna256(pc *uint64, interpreter *EVMInterpreter, scope *ScopeContext) ([]byte, error) {
+	offset, size := scope.Stack.pop(), scope.Stack.peek()
+	data := scope.Memory.GetPtr(int64(offset.Uint64()), int64(size.Uint64()))
+
+	if interpreter.hasher == nil {
+		interpreter.hasher = crypto.NewKeccakState()
+	} else {
+		interpreter.hasher.Reset()
+	}
+	interpreter.hasher.Write(data)
+	interpreter.hasher.Read(interpreter.hasherBuf[:])
+
+	evm := interpreter.evm
+	if evm.Config.EnablePreimageRecording {
+		evm.StateDB.AddPreimage(interpreter.hasherBuf, data)
+	}
+
+	size.SetBytes(interpreter.hasherBuf[:])
+	return nil, nil
+}
 func opAddress(pc *uint64, interpreter *EVMInterpreter, scope *ScopeContext) ([]byte, error) {
 	scope.Stack.push(new(uint256.Int).SetBytes(scope.Contract.Address().Bytes()))
 	return nil, nil
