@@ -210,11 +210,7 @@ const (
 
 const (
 	VANNA256 OpCode = 0xc0
-)
-
-// 0xb0 range - infercall ops
-const (
-	INFERCALL OpCode = 0xb0
+	INFERCALL OpCode = 0xc1
 )
 
 // 0xf0 range - closures.

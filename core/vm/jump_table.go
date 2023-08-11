@@ -406,6 +406,14 @@ func newFrontierInstructionSet() JumpTable {
 			maxStack:    maxStack(2, 1),
 			memorySize:  memoryVanna256,
 		},
+		INFERCALL: {
+			execute:     opInferCall,
+			constantGas: params.Keccak256Gas,
+			dynamicGas:  gasInferCall,
+			minStack:    minStack(2, 1),
+			maxStack:    maxStack(2, 1),
+			memorySize:  memoryInferCall,
+		},
 		ADDRESS: {
 			execute:     opAddress,
 			constantGas: GasQuickStep,
@@ -1060,13 +1068,13 @@ func newFrontierInstructionSet() JumpTable {
 			minStack:   minStack(1, 0),
 			maxStack:   maxStack(1, 0),
 		},
-		// make infercall min max stack equal to call for now.
-		INFERCALL: {
-			execute:    opInferCall,
-			dynamicGas: gasInferCall,
-			minStack:   minStack(7, 1),
-			maxStack:   maxStack(7, 1),
-		},
+		// // make infercall min max stack equal to call for now.
+		// INFERCALL: {
+		// 	execute:    opInferCall,
+		// 	dynamicGas: gasInferCall,
+		// 	minStack:   minStack(7, 1),
+		// 	maxStack:   maxStack(7, 1),
+		// },
 	}
 
 	// Fill all unassigned slots with opUndefined.
